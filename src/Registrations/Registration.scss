@@ -1,0 +1,49 @@
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 600px;
+  margin-top: 10%;
+
+  img {
+    width: 40%;
+    height: 80%;
+  }
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  height: 600px;
+  border: 2px solid;
+  border-radius: 25px;
+}
+.container-log {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 97%;
+  }
+
+  .registration-button {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 10px;
+
+    .but.MuiButton-root {
+      margin-bottom: 10px;
+    }
+  }
+}
