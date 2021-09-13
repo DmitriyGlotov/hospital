@@ -26,19 +26,19 @@ const Registration = () => {
 
   const butReg = () => {
     if (logText.length < 6) {
-      return alert('Логин должен состоять минимум из 6 символов');
+      return alert('Login must be at least 6 characters long');
     }
 
     if (password.password.length < 6) {
-      return alert('Пароль должен состоять минимум из 6 символов')
+      return alert('Password must contain at least 6 characters')
     }
 
     if (!/[a-zA-Z]/.test(password.password) || !/[0-9]/.test(password.password)) {
-      return alert('Пароль должен состоять из латинских букв и цифр')
+      return alert('The password must consist of Latin letters and numbers')
     }
 
     if (password.password !== repiatRassword.password) {
-      return alert('Пароли не совпадают')
+      return alert('Password mismatch')
     }
 
     axios.post('http://localhost:8000/createUser', {
