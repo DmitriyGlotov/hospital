@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import './Regist-Author.scss';
-import HospitalImg from '../images/hospital.png'
+import HospitalImg from '../images/hospital.png';
 import InputAuthorization from './Input-Authorization';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -25,11 +25,11 @@ const Registration = () => {
     }
 
     if (authPassword.password.length < 6) {
-      return alert('Password must contain at least 6 characters')
+      return alert('Password must contain at least 6 characters');
     }
 
     if (!/[a-zA-Z]/.test(authPassword.password) || !/[0-9]/.test(authPassword.password)) {
-      return alert('The password must consist of Latin letters and numbers')
+      return alert('The password must consist of Latin letters and numbers');
     }
 
     axios.post('http://localhost:8000/login', {

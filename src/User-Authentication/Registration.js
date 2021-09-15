@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import './Regist-Author.scss';
-import HospitalImg from '../images/hospital.png'
+import HospitalImg from '../images/hospital.png';
 import InputRegistration from './Input-registration';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -33,7 +33,7 @@ const Registration = () => {
     }
 
     if (password.password.length < 6) {
-      return alert('Password must contain at least 6 characters')
+      return alert('Password must contain at least 6 characters');
     }
 
     // if (!/[^A-Za-z0-9]\d{1}/.test(password.password)) {
@@ -41,7 +41,7 @@ const Registration = () => {
     // }
 
     if (password.password !== repiatRassword.password) {
-      return alert('Password mismatch')
+      return alert('Password mismatch');
     }
 
     axios.post('http://localhost:8000/createUser', {

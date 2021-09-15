@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Sign from '../images/sign.png';
-import './index.scss'
-import DataInput from './Data-input'
+import './index.scss';
+import DataInput from './Data-input';
 import Button from '@material-ui/core/Button';
 import Edit from '../images/edit.png';
 import Delete from './Delete';
@@ -14,7 +14,7 @@ const Shedule = () => {
     axios.get('http://localhost:8000/allShedule').then(res => {
       setAllShedule(res.data.data);
     });
-  }, [setAllShedule])
+  }, [setAllShedule]);
 
   const [nameInput, setNameInput] = useState('');
   const [doctorInput, setDoctorInput] = useState('');
