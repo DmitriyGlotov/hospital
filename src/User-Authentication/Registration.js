@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
-import './Registration.scss';
+import { useHistory } from 'react-router-dom';
+import './Regist-Author.scss';
 import HospitalImg from '../images/hospital.png'
-import InputMu from './Input-MU';
+import InputRegistration from './Input-registration';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import Sign from '../images/sign.png';
 
 const Registration = () => {
+  const history = useHistory();
   const [logText, setLogText] = useState('');
 
   const [password, setPassword] = useState({
@@ -33,9 +36,9 @@ const Registration = () => {
       return alert('Password must contain at least 6 characters')
     }
 
-    if (!/[a-zA-Z]/.test(password.password) || !/[0-9]/.test(password.password)) {
-      return alert('The password must consist of Latin letters and numbers')
-    }
+    // if (!/[^A-Za-z0-9]\d{1}/.test(password.password)) {
+    //   return alert('The password must consist of Latin letters and numbers')
+    // }
 
     if (password.password !== repiatRassword.password) {
       return alert('Password mismatch')
@@ -45,27 +48,35 @@ const Registration = () => {
       login: logText,
       password: password.password,
     })
+
+    history.push(`/main`);
   }
 
   return (
-    <div className="main">
-      <img src={HospitalImg} alt='' className="hospitalImg" />
-      <div className="registration">
+    <div className="container">
+      <div className="head-sign-in">
+        <img src={Sign} alt='' className="sign" />
         <h1>Registration</h1>
-        <div className="container-log">
-          <InputMu
-            logText={logText}
-            setLogText={setLogText}
-            repiatRassword={repiatRassword}
-            setRepiatRassword={setRepiatRassword}
-            password={password}
-            setPassword={setPassword}
-          />
+      </div>
+      <div className="main">
+        <img src={HospitalImg} alt='' className="hospitalImg" />
+        <div className="registration">
+          <div className="container-log">
+            <h1>Registration</h1>
+            <InputRegistration
+              logText={logText}
+              setLogText={setLogText}
+              repiatRassword={repiatRassword}
+              setRepiatRassword={setRepiatRassword}
+              password={password}
+              setPassword={setPassword}
+            />
+          </div>
           <div className="registration-button">
             <Button variant="outlined" color="primary" className="but" onClick={() => {butReg()}}>
               Registration
             </Button>
-            <Button variant="contained" color="secondary" className="but">
+            <Button variant="contained" color="secondary" className="but" onClick={() => {history.push(`/authorization`)}}>
               Login
             </Button>
           </div>

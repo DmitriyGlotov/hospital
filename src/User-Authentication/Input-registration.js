@@ -11,7 +11,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import './Input-MU.scss';
 
-const InputMu = ({logText, setLogText, password, setPassword, repiatRassword, setRepiatRassword}) => {
+const InputRegistration = ({logText, setLogText, password, setPassword, repiatRassword, setRepiatRassword}) => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -117,4 +117,4 @@ const InputMu = ({logText, setLogText, password, setPassword, repiatRassword, se
   )
 }
 
-export default InputMu;
+export default InputRegistration;
