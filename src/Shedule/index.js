@@ -51,7 +51,6 @@ const Shedule = () => {
 
   if (!Number(sortReverse)) allShedule.reverse();
 
-
   let filterShedule = [];
 
   if (!upward && !smaller) filterShedule = allShedule;

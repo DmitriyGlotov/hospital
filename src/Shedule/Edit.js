@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import './Delete.scss'
-import './Edit.scss'
+import './Delete.scss';
+import './Edit.scss';
 
 const Edit = ({setOpenEdit, setAllShedule, name, doctor, data, lament, _id}) => {
   const [nameChange, setNameChange] = useState(name);
@@ -20,7 +20,6 @@ const Edit = ({setOpenEdit, setAllShedule, name, doctor, data, lament, _id}) => 
     },
     {
       value: 'Kirilenro Stanislav',
-
     },
     {
       value: 'Sidorov Danil',
@@ -120,7 +119,6 @@ const butSave = () => {
         </Button>
       </div>
     </div>
-
     <div className="modal-shadow"></div>
     </>
   );

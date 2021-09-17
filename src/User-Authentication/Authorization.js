@@ -29,8 +29,7 @@ const Registration = () => {
     }
 
     if(!/[a-zA-Z]/.test(authPassword.password)) {
-      alert('The password must consist of Latin letters');
-      return
+      return alert('The password must consist of Latin letters');
     }
 
     if (!/\d/.test(authPassword.password)) {
