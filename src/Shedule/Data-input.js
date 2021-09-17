@@ -11,7 +11,7 @@ const DataInput = ({
   complaintsInput,
   setComplaintsInput,
 }) => {
-  const currencies = [
+  const doctors = [
     {
       value: '',
     },
@@ -36,9 +36,9 @@ const DataInput = ({
         required
         id="outlined-required"
         label="Name"
+        autoComplete='off'
         value={nameInput}
         variant="outlined"
-        autocomplete="off"
         onChange={(e) => {setNameInput(e.target.value)}}
       />
       <TextField
@@ -52,7 +52,7 @@ const DataInput = ({
         }}
         variant="outlined"
       >
-        {currencies.map((option) => (
+        {doctors.map((option) => (
           <option key={option.value} value={option.value}>
             {option.value}
           </option>
@@ -74,9 +74,9 @@ const DataInput = ({
         </form>
       <TextField
         required
-        autocomplete="off"
         id="outlined-required"
         label="Complaints"
+        autoComplete='off'
         value={complaintsInput}
         variant="outlined"
         onChange={(e) => {setComplaintsInput(e.target.value)}}

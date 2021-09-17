@@ -1,20 +1,34 @@
 import React from 'react';
-import Del from '../images/Del.png';
+import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import './Delete.scss'
 
-// Доделаю в следующем пулреквесте
+const Delete = ({_id, setAllShedule, setOpenDel}) => {
 
-const Delete = ({_id}) => {
-  const [open, setOpen] = React.useState(false);
+const butDelete = (_id) => {
+  axios.delete(`http://localhost:8000/deleteShedule?_id=${_id}`).then(res => {
+    setAllShedule(res.data.data);
+  });
 
-  const butDel = () => {
-    setOpen(true);
-  }
-
+  setOpenDel(false);
+}
   return (
-    <div>
-      <img src={Del} alt='' onClick={() => butDel()} />
-
+    <>
+    <div className="modal-delete">
+      <div className="modal-head">
+        <p>Delete entry</p>
+      </div>
+      <div className="modal-body">
+        <p>Are you sure you want to delete the entry?</p>
+      </div>
+      <div className="modal-footer">
+        <Button variant="contained" onClick={() => setOpenDel(false)}>Cancel</Button>
+        <Button variant="contained" onClick={() => butDelete(_id)}>Delete</Button>
+      </div>
     </div>
+
+    <div className="modal-shadow"></div>
+    </>
   );
 }
 

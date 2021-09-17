@@ -28,16 +28,19 @@ const Registration = () => {
       return alert('Password must contain at least 6 characters');
     }
 
-    if (!/[a-zA-Z]/.test(authPassword.password) || !/[0-9]/.test(authPassword.password)) {
-      return alert('The password must consist of Latin letters and numbers');
+    if(!/[a-zA-Z]/.test(authPassword.password)) {
+      return alert('The password must consist of Latin letters');
+    }
+
+    if (!/\d/.test(authPassword.password)) {
+      return alert('The password must consist of numbers');
     }
 
     axios.post('http://localhost:8000/login', {
       login: nameText,
       password: authPassword.password,
-    })
-
-    history.push(`/main`);
+    }).then(res => {history.push(`/main`)
+      }).catch(err => alert('Error! Username or password entered incorrectly'))
   }
 
   return (
