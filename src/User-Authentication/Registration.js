@@ -36,9 +36,14 @@ const Registration = () => {
       return alert('Password must contain at least 6 characters');
     }
 
-    // if (!/[^A-Za-z0-9]\d{1}/.test(password.password)) {
-    //   return alert('The password must consist of Latin letters and numbers')
-    // }
+    if(!/[a-zA-Z]/.test(password.password)) {
+      alert('The password must consist of Latin letters');
+      return
+    }
+
+    if (!/\d/.test(password.password)) {
+      return alert('The password must consist of numbers');
+    }
 
     if (password.password !== repiatRassword.password) {
       return alert('Password mismatch');
@@ -47,9 +52,8 @@ const Registration = () => {
     axios.post('http://localhost:8000/createUser', {
       login: logText,
       password: password.password,
-    })
-
-    history.push(`/main`);
+    }).then(res => {history.push('/main')}
+    ).catch(err => alert('Error! This login is already occupied'))
   }
 
   return (

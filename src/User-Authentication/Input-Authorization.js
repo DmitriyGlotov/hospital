@@ -51,6 +51,7 @@ const InputAuthorization = ({logText, setLogText, password, setPassword, repiatR
         required
         id="outlined-required"
         label="Login"
+        autoComplete='off'
         placeholder="Login"
         variant="outlined"
         value={logText}
@@ -63,6 +64,7 @@ const InputAuthorization = ({logText, setLogText, password, setPassword, repiatR
           id="outlined-adornment-password"
           type={password.showPassword ? 'text' : 'password'}
           value={password.password}
+          autoComplete='off'
           onChange={passwordChange('password')}
           endAdornment={
             <InputAdornment position="end">
