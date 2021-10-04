@@ -33,15 +33,36 @@ const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag
     setSort(e.target.value);
     if (e.target.value === '') {
       setSortFlag(false);
-      setSortReverse(1);
-    } else setSortFlag(true);
+    } else {
+      setSortFlag(true);
+    }
+    setSortReverse(1);
   }
 
   return (
     <div className="sort">
+      <TextField
+        id="outlined-select-currency-native"
+        select
+        className="sort-inc"
+        label="SortBy"
+        value={sort}
+        onChange={(e) => changeSortBy(e)}
+        SelectProps={{
+          native: true,
+        }}
+        variant="outlined"
+      >
+        {sortBy.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.value}
+          </option>
+        ))}
+      </TextField>
       {sortFlag && <TextField
         id="outlined-select-currency-native"
         select
+        className="sort-inc"
         label="Direction"
         value={sortReverse}
         onChange={(e) => setSortReverse(e.target.value)}
@@ -57,23 +78,6 @@ const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag
         ))}
       </TextField>
       }
-      <TextField
-        id="outlined-select-currency-native"
-        select
-        label="SortBy"
-        value={sort}
-        onChange={(e) => changeSortBy(e)}
-        SelectProps={{
-          native: true,
-        }}
-        variant="outlined"
-      >
-        {sortBy.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.value}
-          </option>
-        ))}
-      </TextField>
     </div>
   )
 }

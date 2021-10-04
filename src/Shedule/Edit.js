@@ -30,13 +30,18 @@ const Edit = ({setOpenEdit, setAllShedule, name, doctor, data, lament, _id}) => 
   ];
 
 const butSave = () => {
+  const accessToken = localStorage.getItem('token');
   axios.patch('http://localhost:8000/changeShedule', {
     _id,
-    name: nameChange,
-    doctor: doctorChange,
-    data: dateChange,
-    lament: complaintsChange
-    }).then(res => {
+    Name: nameChange,
+    Doctor: doctorChange,
+    Data: dateChange,
+    Lament: complaintsChange
+    }, {headers: {
+      Authorization: `${accessToken}`,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json;charset=utf-8'
+    }}).then(res => {
     setAllShedule(res.data.data);
   });
 
@@ -94,7 +99,7 @@ const butSave = () => {
         <TextField
           required
           id="outlined-required"
-          className="input-edit"
+          className="input-edit edit"
           label="Complaints"
           autoComplete='off'
           value={complaintsChange}

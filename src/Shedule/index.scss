@@ -11,14 +11,19 @@
   justify-content: space-between;
   padding: 1% 0;
   background-color: #C5E9FF;
-  box-shadow: 0px 10px 2px rgb(168, 167, 167);
+  box-shadow: 0px 4px 10px #a8a7a7;
   width: 100%;
 
   button{
-    width: 60px;
-    height: 25px;
+    width: 100px;
+    height: 45px;
     margin-right: 5%;
+    text-transform: none;
   }
+}
+
+.MuiFormControl-root {
+  width: 180px;
 }
 
 .title {
@@ -32,13 +37,20 @@
   display: flex;
   height: 104px;
   background-color: #C5E9FF;
-  box-shadow: 0px 10px 2px #a8a7a7;
+  box-shadow: 0px 4px 10px #a8a7a7;
   margin-top: 1%;
   align-items: center;
   justify-content: space-evenly;
+
+  .add.MuiButton-contained {
+    width: 100px;
+    height: 45px;
+    text-transform: none;
+  }
 }
 
 .container-shedule {
+  min-width: 1300px;
   width: 95%;
 }
 
@@ -52,13 +64,19 @@
   justify-content: flex-start;
 
   p {
-    width: 21%;
+    width: 21.4%;
     text-align: center;
   }
 }
 
 .container-info {
   border: 1px solid black;
+  overflow: overlay;
+  max-height: 480px;
+}
+
+::-webkit-scrollbar {
+  opacity: 0;
 }
 
 .info {
@@ -73,7 +91,10 @@
     text-align: center;
     border-right: 1px solid black;
     margin: 0;
-    padding: 27px 0;
+    padding: 27px 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .container-button {
@@ -114,5 +135,36 @@
     flex-direction: column;
     align-items: center;
     margin-left: 30px;
+  }
+}
+
+@media screen and (max-width:870px){
+  .data-input {
+    height: 200px;
+    flex-wrap: wrap;
+  }
+
+  .head button {
+    width: 80px;
+    height: 30px;
+  }
+
+  .data-input .add.MuiButton-contained {
+    width: 80px;
+    height: 30px;
+  }
+
+  .title {
+    width: 200px;
+    align-items: center;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sort {
+    padding: 5px;
   }
 }

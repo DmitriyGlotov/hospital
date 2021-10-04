@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import Sign from '../images/sign.png';
 import './index.scss';
@@ -18,31 +19,37 @@ const Shedule = () => {
   const [doctorInput, setDoctorInput] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [complaintsInput, setComplaintsInput] = useState('');
-  const [openDel, setOpenDel] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openDel, setOpenDel] = useState('');
+  const [openEdit, setOpenEdit] = useState('');
   const [sort, setSort] = useState('');
   const [sortReverse, setSortReverse] = useState(1);
   const [sortFlag, setSortFlag] = useState(false);
   const [upward, setUpward] = useState('');
   const [smaller, setSmaller] = useState('');
   const [addFilter, setAddFilter] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
-    axios.get('http://localhost:8000/allShedule').then(res => {
+    const accessToken = localStorage.getItem('token');
+    axios.get('http://localhost:8000/allShedule', {
+      headers: {
+        Authorization: `${accessToken}`,
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json;charset=utf-8'
+    }}).then(res => {
     setAllShedule(res.data.data);
     });
-
   }, [setAllShedule]);
 
   switch(sort) {
     case 'Name':
-      allShedule.sort((a, b) => a.name.localeCompare(b.name))
+      allShedule.sort((a, b) => a.Name.localeCompare(b.Name))
     break;
     case 'Doctor':
-      allShedule.sort((a, b) => a.doctor.localeCompare(b.doctor))
+      allShedule.sort((a, b) => a.Doctor.localeCompare(b.Doctor))
     break;
     case 'Date':
-      allShedule.sort((a, b) => a.data.localeCompare(b.data))
+      allShedule.sort((a, b) => a.Data.localeCompare(b.Data))
     break;
     default:
       allShedule.sort((a, b) => a._id.localeCompare(b._id))
@@ -59,12 +66,17 @@ const Shedule = () => {
   if (upward && smaller) filterShedule = allShedule.filter(item => item.data <= smaller && item.data >= upward);
 
   const butAdd = () => {
+    const accessToken = localStorage.getItem('token');
     axios.post('http://localhost:8000/createShedule', {
-      name: nameInput,
-      doctor: doctorInput,
-      data: dateInput,
-      lament: complaintsInput
-    }).then(res => {setAllShedule(res.data.data);});
+      Name: nameInput,
+      Doctor: doctorInput,
+      Data: dateInput,
+      Lament: complaintsInput
+    }, {headers: {
+        Authorization: `${accessToken}`,
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json;charset=utf-8'
+    }}).then(res => {setAllShedule(res.data.data);});
 
     setNameInput('');
     setDoctorInput('');
@@ -78,6 +90,11 @@ const Shedule = () => {
     setSmaller('');
   }
 
+  const butExit = () => {
+    history.push('/authorization');
+    localStorage.removeItem('token');
+  }
+
   return (
     <div className='main-shedule'>
       <div className="head">
@@ -85,7 +102,7 @@ const Shedule = () => {
           <img src={Sign} alt='' />
           <h1>Shedule</h1>
         </div>
-        <Button variant="contained">Exit</Button>
+        <Button variant="contained" onClick={() => butExit()}>Exit</Button>
       </div>
       <div className="data-input">
         <DataInput
@@ -107,6 +124,7 @@ const Shedule = () => {
                 ? true
                 : false }
           variant="contained"
+          className="add"
           onClick={() => butAdd()}
         >
           Add
@@ -148,27 +166,27 @@ const Shedule = () => {
         <div className="container-info">
           {
             filterShedule.map((item, index) => {
-              const { _id, name, doctor, data, lament} = item;
+              const { _id, Name, Doctor, Data, Lament} = item;
 
               return (
               <div key={`list-${index}`} className="info">
-                <p className="info-data">{name}</p>
-                <p className="info-data">{doctor}</p>
-                <p className="info-data">{data}</p>
-                <p className="info-data">{lament}</p>
+                <p className="info-data">{Name}</p>
+                <p className="info-data">{Doctor}</p>
+                <p className="info-data">{Data}</p>
+                <p className="info-data">{Lament}</p>
                 <div className="container-button">
-                  <img src={EditImg} alt='' onClick={() => setOpenEdit(true)}/>
-                  {openEdit && <Edit
+                  <img src={EditImg} alt='' onClick={() => setOpenEdit(index)}/>
+                  {openEdit === index && <Edit
                     _id={_id}
-                    name={name}
-                    doctor={doctor}
-                    data={data}
-                    lament={lament}
+                    name={Name}
+                    doctor={Doctor}
+                    data={Data}
+                    lament={Lament}
                     setAllShedule={setAllShedule}
                     setOpenEdit={setOpenEdit}/>
                   }
-                  <img src={Del} alt='' onClick={() => setOpenDel(true)} />
-                  {openDel && <Delete
+                  <img src={Del} alt='' onClick={() => setOpenDel(index)} />
+                  {openDel === index && <Delete
                     _id={_id}
                     setAllShedule={setAllShedule}
                     setOpenDel={setOpenDel} />

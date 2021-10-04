@@ -6,7 +6,14 @@ import './Delete.scss'
 const Delete = ({_id, setAllShedule, setOpenDel}) => {
 
 const butDelete = (_id) => {
-  axios.delete(`http://localhost:8000/deleteShedule?_id=${_id}`).then(res => {
+  const accessToken = localStorage.getItem('token');
+  axios.delete(`http://localhost:8000/deleteShedule?_id=${_id}`, {
+    headers: {
+      Authorization: `${accessToken}`,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json;charset=utf-8'
+    }
+  }).then(res => {
     setAllShedule(res.data.data);
   });
 

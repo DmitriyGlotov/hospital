@@ -1,5 +1,16 @@
 .sort {
-  width: 25%;
+  width: 30%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+
+  .sort-inc.MuiFormControl-root {
+    margin-left: 10px;
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 415px){
+  .sort {
+    width: 100%;
+  }
 }
