@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -6,7 +6,7 @@ import './Delete.scss';
 import './Edit.scss';
 
 const Edit = ({setOpenEdit, setAllShedule, item}) => {
-  const {_id, Name, Doctor, Data, Lament} = item;
+  const { _id, Name, Doctor, Data, Lament } = item;
   const [nameChange, setNameChange] = useState(Name);
   const [doctorChange, setDoctorChange] = useState(Doctor);
   const [dateChange, setDateChange] = useState(Data);

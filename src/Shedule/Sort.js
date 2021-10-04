@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import './Sort.scss';
 
-const Sort = ({setSort, sort, sortReverse, setSortReverse }) => {
+const Sort = ({ setSort, sort, sortReverse, setSortReverse }) => {
   const sortingType = [
     {
       label: 'Increase',
