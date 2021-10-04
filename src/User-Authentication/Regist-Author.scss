@@ -68,13 +68,13 @@
   }
 }
 
-@media screen and (max-width:800px){
-  .main {
-   img {
+@media screen and (max-width: 1030px) {
+  .main img {
     display: none;
-   }
   }
+}
 
+@media screen and (max-width:800px) {
   .registration {
     width: 330px;
     height: 500px;

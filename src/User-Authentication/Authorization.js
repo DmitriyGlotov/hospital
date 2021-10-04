@@ -45,7 +45,7 @@ const Authorization = () => {
     }
 
     if (!/\d/.test(authPassword.password)) {
-     return setState({...state, open: true, message: 'The password must consist of numbers'});
+      return setState({...state, open: true, message: 'The password must consist of numbers'});
     }
 
     axios.post('http://localhost:8000/login', {
@@ -54,7 +54,7 @@ const Authorization = () => {
     }).then(res => {
       localStorage.setItem('token', res.data.accessToken)
       history.push(`/main`)
-      }).catch(err => setState({...state, open: true, message: 'Error! This username or password does not exist'}));
+    }).catch(err => setState({...state, open: true, message: 'Error! This username or password does not exist'}));
   }
 
   return (

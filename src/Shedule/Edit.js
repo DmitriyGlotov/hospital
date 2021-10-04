@@ -5,11 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import './Delete.scss';
 import './Edit.scss';
 
-const Edit = ({setOpenEdit, setAllShedule, name, doctor, data, lament, _id}) => {
-  const [nameChange, setNameChange] = useState(name);
-  const [doctorChange, setDoctorChange] = useState(doctor);
-  const [dateChange, setDateChange] = useState(data);
-  const [complaintsChange, setComplaintsChange] = useState(lament);
+const Edit = ({setOpenEdit, setAllShedule, item}) => {
+  const {_id, Name, Doctor, Data, Lament} = item;
+  const [nameChange, setNameChange] = useState(Name);
+  const [doctorChange, setDoctorChange] = useState(Doctor);
+  const [dateChange, setDateChange] = useState(Data);
+  const [complaintsChange, setComplaintsChange] = useState(Lament);
 
   const doctors = [
     {

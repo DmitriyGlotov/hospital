@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Sign from '../images/sign.png';
 import './index.scss';
@@ -21,9 +21,8 @@ const Shedule = () => {
   const [complaintsInput, setComplaintsInput] = useState('');
   const [openDel, setOpenDel] = useState('');
   const [openEdit, setOpenEdit] = useState('');
-  const [sort, setSort] = useState('');
+  const [sort, setSort] = useState('_id');
   const [sortReverse, setSortReverse] = useState(1);
-  const [sortFlag, setSortFlag] = useState(false);
   const [upward, setUpward] = useState('');
   const [smaller, setSmaller] = useState('');
   const [addFilter, setAddFilter] = useState(false);
@@ -41,20 +40,7 @@ const Shedule = () => {
     });
   }, [setAllShedule]);
 
-  switch(sort) {
-    case 'Name':
-      allShedule.sort((a, b) => a.Name.localeCompare(b.Name))
-    break;
-    case 'Doctor':
-      allShedule.sort((a, b) => a.Doctor.localeCompare(b.Doctor))
-    break;
-    case 'Date':
-      allShedule.sort((a, b) => a.Data.localeCompare(b.Data))
-    break;
-    default:
-      allShedule.sort((a, b) => a._id.localeCompare(b._id))
-    break;
-  }
+  allShedule.sort((a, b) => a[sort].localeCompare(b[sort]));
 
   if (!Number(sortReverse)) allShedule.reverse();
 
@@ -132,8 +118,6 @@ const Shedule = () => {
       </div>
       <div className="container-sort">
         <Sort
-          setSortFlag={setSortFlag}
-          sortFlag={sortFlag}
           setSortReverse={setSortReverse}
           sortReverse={sortReverse}
           setSort={setSort}
@@ -157,45 +141,43 @@ const Shedule = () => {
         </div>
       </div>
       <div className="container-shedule">
-        <div className="headlines">
-          <p>Name</p>
-          <p>Doctor</p>
-          <p>Date</p>
-          <p>Complaints</p>
-        </div>
-        <div className="container-info">
-          {
-            filterShedule.map((item, index) => {
-              const { _id, Name, Doctor, Data, Lament} = item;
+        <div className="table">
+          <div className="headlines">
+            <p>Name</p>
+            <p>Doctor</p>
+            <p>Date</p>
+            <p>Complaints</p>
+          </div>
+          <div className="container-info">
+            {
+              filterShedule.map((item, index) => {
+                const { _id, Name, Doctor, Data, Lament} = item;
 
-              return (
-              <div key={`list-${index}`} className="info">
-                <p className="info-data">{Name}</p>
-                <p className="info-data">{Doctor}</p>
-                <p className="info-data">{Data}</p>
-                <p className="info-data">{Lament}</p>
-                <div className="container-button">
-                  <img src={EditImg} alt='' onClick={() => setOpenEdit(index)}/>
-                  {openEdit === index && <Edit
-                    _id={_id}
-                    name={Name}
-                    doctor={Doctor}
-                    data={Data}
-                    lament={Lament}
-                    setAllShedule={setAllShedule}
-                    setOpenEdit={setOpenEdit}/>
-                  }
-                  <img src={Del} alt='' onClick={() => setOpenDel(index)} />
-                  {openDel === index && <Delete
-                    _id={_id}
-                    setAllShedule={setAllShedule}
-                    setOpenDel={setOpenDel} />
-                  }
+                return (
+                <div key={`list-${index}`} className="info">
+                  <p className="info-data">{Name}</p>
+                  <p className="info-data">{Doctor}</p>
+                  <p className="info-data">{Data}</p>
+                  <p className="info-data">{Lament}</p>
+                  <div className="container-button">
+                    <img src={EditImg} alt='' onClick={() => setOpenEdit(index)}/>
+                    {openEdit === index && <Edit
+                      item={item}
+                      setAllShedule={setAllShedule}
+                      setOpenEdit={setOpenEdit}/>
+                    }
+                    <img src={Del} alt='' onClick={() => setOpenDel(index)} />
+                    {openDel === index && <Delete
+                      _id={_id}
+                      setAllShedule={setAllShedule}
+                      setOpenDel={setOpenDel} />
+                    }
+                  </div>
                 </div>
-              </div>
-              )
-            })
-          }
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     </div>

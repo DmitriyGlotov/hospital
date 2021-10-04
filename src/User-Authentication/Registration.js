@@ -66,8 +66,7 @@ const Registration = () => {
     }).then(res => {
       localStorage.setItem('token', res.data.accessToken)
       history.push('/main')
-    }
-    ).catch(err => setState({...state, open: true, message:'Error! This login is already occupied'}));
+    }).catch(err => setState({...state, open: true, message:'Error! This login is already occupied'}));
   }
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import './Sort.scss';
 
-const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag}) => {
+const Sort = ({setSort, sort, sortReverse, setSortReverse }) => {
   const sortingType = [
     {
       label: 'Increase',
@@ -16,26 +16,25 @@ const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag
 
   const sortBy = [
     {
-      value: '',
+      value: '_id',
+      label: '',
     },
     {
       value: 'Name',
+      label: 'Name',
     },
     {
       value: 'Doctor',
+      label: 'Doctor',
     },
     {
-      value: 'Date',
+      value: 'Data',
+      label: 'Data',
     },
   ];
 
   const changeSortBy = (e) => {
     setSort(e.target.value);
-    if (e.target.value === '') {
-      setSortFlag(false);
-    } else {
-      setSortFlag(true);
-    }
     setSortReverse(1);
   }
 
@@ -55,11 +54,11 @@ const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag
       >
         {sortBy.map((option) => (
           <option key={option.value} value={option.value}>
-            {option.value}
+            {option.label}
           </option>
         ))}
       </TextField>
-      {sortFlag && <TextField
+      {sort !== '_id' && <TextField
         id="outlined-select-currency-native"
         select
         className="sort-inc"
