@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import './Sort.scss';
 
-const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag}) => {
+const Sort = ({ setSort, sort, sortReverse, setSortReverse }) => {
   const sortingType = [
     {
       label: 'Increase',
@@ -16,32 +16,52 @@ const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag
 
   const sortBy = [
     {
-      value: '',
+      value: '_id',
+      label: '',
     },
     {
       value: 'Name',
+      label: 'Name',
     },
     {
       value: 'Doctor',
+      label: 'Doctor',
     },
     {
-      value: 'Date',
+      value: 'Data',
+      label: 'Data',
     },
   ];
 
   const changeSortBy = (e) => {
     setSort(e.target.value);
-    if (e.target.value === '') {
-      setSortFlag(false);
-      setSortReverse(1);
-    } else setSortFlag(true);
+    setSortReverse(1);
   }
 
   return (
     <div className="sort">
-      {sortFlag && <TextField
+      <TextField
         id="outlined-select-currency-native"
         select
+        className="sort-inc"
+        label="SortBy"
+        value={sort}
+        onChange={(e) => changeSortBy(e)}
+        SelectProps={{
+          native: true,
+        }}
+        variant="outlined"
+      >
+        {sortBy.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </TextField>
+      {sort !== '_id' && <TextField
+        id="outlined-select-currency-native"
+        select
+        className="sort-inc"
         label="Direction"
         value={sortReverse}
         onChange={(e) => setSortReverse(e.target.value)}
@@ -57,23 +77,6 @@ const Sort = ({setSort, sort, sortReverse, setSortReverse, sortFlag, setSortFlag
         ))}
       </TextField>
       }
-      <TextField
-        id="outlined-select-currency-native"
-        select
-        label="SortBy"
-        value={sort}
-        onChange={(e) => changeSortBy(e)}
-        SelectProps={{
-          native: true,
-        }}
-        variant="outlined"
-      >
-        {sortBy.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.value}
-          </option>
-        ))}
-      </TextField>
     </div>
   )
 }

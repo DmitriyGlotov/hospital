@@ -28,11 +28,21 @@
     width: 90%;
   }
 
+  .input-edit.MuiInputBase-root {
+    height: 110px;
+  }
+
   .date-form {
     width: 90%;
   }
 
   .MuiFormControl-root {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .modal-edit {
+    max-width: 370px;
   }
 }

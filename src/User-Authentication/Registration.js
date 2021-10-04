@@ -6,6 +6,7 @@ import InputRegistration from './Input-registration';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import Sign from '../images/sign.png';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const Registration = () => {
   const history = useHistory();
@@ -27,33 +28,45 @@ const Registration = () => {
     showPassword: false,
   });
 
+  const [state, setState] = useState({
+    open: false,
+    message: ''
+  });
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const { open, message } = state;
+
   const butReg = () => {
     if (logText.length < 6) {
-      return alert('Login must be at least 6 characters long');
+      return setState({...state, open: true, message: 'Login must be at least 6 characters long'});
     }
 
     if (password.password.length < 6) {
-      return alert('Password must contain at least 6 characters');
+      return setState({...state, open: true, message: 'Password must contain at least 6 characters'});
     }
 
     if(!/[a-zA-Z]/.test(password.password)) {
-      alert('The password must consist of Latin letters');
-      return
+      return setState({...state, open: true, message: 'The password must consist of Latin letters'});
     }
 
     if (!/\d/.test(password.password)) {
-      return alert('The password must consist of numbers');
+      return setState({...state, open: true, message: 'The password must consist of numbers'});
     }
 
     if (password.password !== repiatRassword.password) {
-      return alert('Password mismatch');
+      return setState({...state, open: true, message: 'Password mismatch'});
     }
 
     axios.post('http://localhost:8000/createUser', {
       login: logText,
       password: password.password,
-    }).then(res => {history.push('/main')}
-    ).catch(err => alert('Error! This login is already occupied'))
+    }).then(res => {
+      localStorage.setItem('token', res.data.accessToken)
+      history.push('/main')
+    }).catch(err => setState({...state, open: true, message:'Error! This login is already occupied'}));
   }
 
   return (
@@ -83,6 +96,17 @@ const Registration = () => {
             <Button variant="contained" color="secondary" className="but" onClick={() => {history.push(`/authorization`)}}>
               Login
             </Button>
+          </div>
+          <div>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            open={open}
+            onClose={handleClose}
+            message={message}
+          />
           </div>
         </div>
       </div>

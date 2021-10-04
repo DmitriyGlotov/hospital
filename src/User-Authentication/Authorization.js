@@ -6,10 +6,22 @@ import InputAuthorization from './Input-Authorization';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import Sign from '../images/sign.png';
+import Snackbar from '@material-ui/core/Snackbar';
 
-const Registration = () => {
+const Authorization = () => {
   const [nameText, setnameText] = useState('');
   const history = useHistory();
+
+  const [state, setState] = useState({
+    open: false,
+    message: ''
+  });
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const { open, message } = state;
 
   const [authPassword, setauthPassword] = useState({
     amount: '',
@@ -21,26 +33,28 @@ const Registration = () => {
 
   const butLog = () => {
     if (nameText.length < 6) {
-      return alert('Login must be at least 6 characters long');
+      return setState({...state, open: true, message: 'Login must be at least 6 characters long'});
     }
 
     if (authPassword.password.length < 6) {
-      return alert('Password must contain at least 6 characters');
+      return setState({...state, open: true, message: 'Password must contain at least 6 characters'});
     }
 
     if(!/[a-zA-Z]/.test(authPassword.password)) {
-      return alert('The password must consist of Latin letters');
+      return setState({...state, open: true, message: 'The password must consist of Latin letters'});
     }
 
     if (!/\d/.test(authPassword.password)) {
-      return alert('The password must consist of numbers');
+      return setState({...state, open: true, message: 'The password must consist of numbers'});
     }
 
     axios.post('http://localhost:8000/login', {
       login: nameText,
       password: authPassword.password,
-    }).then(res => {history.push(`/main`)
-      }).catch(err => alert('Error! Username or password entered incorrectly'))
+    }).then(res => {
+      localStorage.setItem('token', res.data.accessToken)
+      history.push(`/main`)
+    }).catch(err => setState({...state, open: true, message: 'Error! This username or password does not exist'}));
   }
 
   return (
@@ -69,10 +83,21 @@ const Registration = () => {
               Registration
             </Button>
           </div>
+          <div>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            open={open}
+            onClose={handleClose}
+            message={message}
+          />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Registration;
+export default Authorization;

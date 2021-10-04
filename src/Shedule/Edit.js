@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import './Delete.scss';
 import './Edit.scss';
 
-const Edit = ({setOpenEdit, setAllShedule, name, doctor, data, lament, _id}) => {
-  const [nameChange, setNameChange] = useState(name);
-  const [doctorChange, setDoctorChange] = useState(doctor);
-  const [dateChange, setDateChange] = useState(data);
-  const [complaintsChange, setComplaintsChange] = useState(lament);
+const Edit = ({setOpenEdit, setAllShedule, item}) => {
+  const { _id, Name, Doctor, Data, Lament } = item;
+  const [nameChange, setNameChange] = useState(Name);
+  const [doctorChange, setDoctorChange] = useState(Doctor);
+  const [dateChange, setDateChange] = useState(Data);
+  const [complaintsChange, setComplaintsChange] = useState(Lament);
 
   const doctors = [
     {
@@ -30,13 +31,18 @@ const Edit = ({setOpenEdit, setAllShedule, name, doctor, data, lament, _id}) => 
   ];
 
 const butSave = () => {
+  const accessToken = localStorage.getItem('token');
   axios.patch('http://localhost:8000/changeShedule', {
     _id,
-    name: nameChange,
-    doctor: doctorChange,
-    data: dateChange,
-    lament: complaintsChange
-    }).then(res => {
+    Name: nameChange,
+    Doctor: doctorChange,
+    Data: dateChange,
+    Lament: complaintsChange
+    }, {headers: {
+      Authorization: `${accessToken}`,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json;charset=utf-8'
+    }}).then(res => {
     setAllShedule(res.data.data);
   });
 
@@ -94,7 +100,7 @@ const butSave = () => {
         <TextField
           required
           id="outlined-required"
-          className="input-edit"
+          className="input-edit edit"
           label="Complaints"
           autoComplete='off'
           value={complaintsChange}
